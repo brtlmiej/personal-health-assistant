@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+tf-nightly
+joblib
+slack_sdk
+slack_bolt
+flask
+imblearn
