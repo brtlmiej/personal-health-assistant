@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-from tensorflow.keras import Input, Model
+from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Dropout
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import joblib
 from sklearn.compose import ColumnTransformer
@@ -10,12 +9,6 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import KNNImputer
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
-from tensorflow.keras import layers, models
-from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-from tensorflow import keras #keras
-import tensorflow as tf #tensorflow
-from sklearn.metrics import accuracy_score, recall_score ,precision_score, f1_score#evaluate model
 
 #Load data
 df = pd.read_csv('resources/stroke.csv', index_col='id')
@@ -52,33 +45,25 @@ sm = SMOTE(random_state=8)
 #create new training set with SMOTE object
 X_bal, y_bal = sm.fit_resample(X_train, y_train)
 
-#builds the architecture for a neural network
-#creates a dense network with 1 skip step
-inputs = Input(shape=(21,))
-a = Dense(64, activation='relu')(inputs)
-x = Dropout(0.6)(a)
-x = Dense(128, activation='relu')(x)
-x = Dropout(0.6)(x)
-x = Dense(256, activation='relu')(x)
-x = Dropout(0.6)(x)
-x = Dense(128, activation='relu')(x)
-x = Dropout(0.6)(x)
-x = layers.concatenate([a, x])
-x = Dense(64, activation='relu')(x)
-x = Dropout(0.6)(x)
-x = Dense(32, activation='relu')(x)
-x = Dropout(0.6)(x)
-output = Dense(1, activation='sigmoid')(x)
+n_features = X_train.shape[1]
 
-model = Model(inputs, output, name="stroke_predictor")
+#builds the architecture for a neural network
+model = Sequential()
+model.add(Dense(32, activation='relu', kernel_initializer='he_normal', input_shape=(n_features,)))
+model.add(Dense(16, activation='relu', kernel_initializer='he_normal'))
+model.add(Dense(2, activation='relu', kernel_initializer='he_normal'))
+model.add(Dropout(0.6))
+# model.add(Dense(4, activation='relu', kernel_initializer='he_normal'))
+# model.add(Dense(16, activation='relu', kernel_initializer='he_normal'))
+# model.add(Dense(32, activation='relu', kernel_initializer='he_normal'))
+# model.add(Dropout(0.6))
+model.add(Dense(1, activation='sigmoid'))
 
 #Compile the model with Adam optimizer
-model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.0001),
-            loss='binary_crossentropy', metrics=['accuracy'])
-early_stopper = EarlyStopping(monitor='val_loss', patience=30, restore_best_weights=True)
+model.compile(optimizer="adam", loss='binary_crossentropy', metrics=['accuracy'])
 
 #Trains the neural network
-history = model.fit(X_bal, y_bal, epochs=1000, callbacks=[early_stopper], validation_data=(X_val, y_val), verbose=0)
+model.fit(X_bal, y_bal, epochs=200, batch_size=16, verbose=0)
 
 #Save the model
 joblib.dump(model, "model.joblib")

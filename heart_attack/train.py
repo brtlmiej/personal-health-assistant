@@ -27,18 +27,13 @@ x_train, x_test, y_train, y_test = train_test_split(x, y,test_size = 0.33)
 n_features = x_train.shape[1]
 
 #Define model
-model = Sequential(
-    [
-        Dense(
-            256, activation="relu", input_shape=[13]
-        ),
-        Dense(515, activation="relu"),
-        Dropout(0.3),
-        Dense(50, activation="relu"),
-        Dropout(0.3),
-        Dense(1, activation="sigmoid"),
-    ]
-)
+model = Sequential()
+model.add(Dense(256, activation="relu", input_shape=(n_features,)))
+model.add(Dense(515, activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(50, activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(1, activation="sigmoid"))
 
 #Compiling the model
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
