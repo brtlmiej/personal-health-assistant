@@ -53,10 +53,6 @@ model.add(Dense(32, activation='relu', kernel_initializer='he_normal', input_sha
 model.add(Dense(16, activation='relu', kernel_initializer='he_normal'))
 model.add(Dense(2, activation='relu', kernel_initializer='he_normal'))
 model.add(Dropout(0.6))
-# model.add(Dense(4, activation='relu', kernel_initializer='he_normal'))
-# model.add(Dense(16, activation='relu', kernel_initializer='he_normal'))
-# model.add(Dense(32, activation='relu', kernel_initializer='he_normal'))
-# model.add(Dropout(0.6))
 model.add(Dense(1, activation='sigmoid'))
 
 #Compile the model with Adam optimizer
