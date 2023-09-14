@@ -1,0 +1,55 @@
+name: ⭐ Feature request
+description: Propose a new feature
+labels:
+  - type:feature
+body:
+  - type: textarea
+    attributes:
+      label: Feature description
+      description: A high-level description of what behavior you expect to be implemented.
+  - type: textarea
+    attributes:
+      label: Requirements
+      description: What must be done to consider this issue finished?
+      placeholder: |-
+        1. …
+        2. …
+        3. …
+  - type: markdown
+    attributes:
+      value: >
+        **Please provide a well-defined description of the requirements.** They are crucial to limit
+        the scope of the issue. Smaller issues are easier to implement and review. If you see a
+        possibility to split the issue into multiple issues, consider doing that.
+  - type: textarea
+    attributes:
+      label: Technical details
+      description: >
+        Code examples, quotations from standards, and other technical resources that may be helpful
+        to the person implementing this feature.
+  - type: textarea
+    attributes:
+      label: Other details
+      description: >
+        Any other details that do not fit into other categories. For example, when this issue is a
+        follow-up to some other issue, you may mention it here.
+  - type: dropdown
+    attributes:
+      label: DoR and DoD
+      description: >
+        ## DoR - **Defined and understandable** (Is there a common understanding amongst the team on
+        what the task is and how it will be implemented?) - **Estimated** (Has the task been
+        estimated by the team?) - **Atomic** (Is the task of a size that can be completed within an
+        iteration?) - **Testable** (Does the team understand how they can test the task?) -
+        **Implementable** (Can this task be done? Are there no other blockers/obstacles?)
+
+        ## DoD - **Meets all requirements** (Does the solution meet all requirements of the task?) -
+        **Tested** (Can the solution be tested? Has the solution been automatically tested - are
+        automated tests written? Has the solution been tested on performance?) - **QA Tested** (Can
+        the solution be QA tested? Has the solution been tested manually by the appropriate
+        people/teams - developers, QA, etc.?) - **Peer-reviewed** (Has the solution been reviewed
+        and approved by the team/peers?) - **Delivered** (Has the solution been added to the
+        codebase? Is the solution available to the relevant people / stakeholders?) - **Documented**
+        (Can the solution be documented? Has the documentation been prepared? Is the documentation
+        understandable to users?) - **Understandable** (Is the proposed solution clear for
+        stakeholders?).
